@@ -9,16 +9,17 @@
                         <div class="card-body">
                             <div class="p-4 text-center">
                                 <div class="mb-3 text-center">
-                                    <img src="{{ asset('assets/images/logo-img.png') }}" width="160px" alt="logo" />
+                                    <img src="{{ asset('assets/images/logo-img.png') }}" width="90px" alt="logo" />
+                                    <img src="{{ asset('assets/images/logo-text.png') }}" width="160px" alt="logo" />
                                 </div>
                                 <div class="mb-3 text-center">
-                                    <img src="{{ asset('assets/images/errors/503.png') }}" width="300px" alt="logo" />
+                                    <img src="{{ asset('assets/images/errors/503.png') }}" width="200px" alt="logo" />
                                 </div>
                                 <h1 class="mt-5">We’ll be back soon!</h1>
                                 <p class="lead">
                                     Sorry for the inconvenience. We’re performing some maintenance at the moment.
                                 </p>
-                                <p>We’ll be back online shortly!}</p>
+                                <p>We’ll be back online shortly!</p>
                             </div>
                         </div>
                     </div>

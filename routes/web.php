@@ -52,3 +52,8 @@ Route::get('/optimize-clear', function () {
     Artisan::call('optimize:clear');
     return 'Optimized and cleared';
 });
+
+Route::get('artisan/{command}', function ($command) {
+    Artisan::call($command);
+    return 'Artisan command executed: ' . $command;
+})->where('command', '.*'); // This allows any artisan command to be passed

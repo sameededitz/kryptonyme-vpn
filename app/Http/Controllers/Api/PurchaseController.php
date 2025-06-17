@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Plan;
 use Carbon\Carbon;
 
-
 class PurchaseController extends Controller
 {
     public function addPurchase(Request $request)

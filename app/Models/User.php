@@ -6,9 +6,9 @@ use Spatie\Sluggable\HasSlug;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Sluggable\SlugOptions;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\VerifyEmailNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Notifications\CustomEmailVerifyNotification;
-use App\Notifications\CustomResetPasswordNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -70,12 +70,12 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function sendEmailVerificationNotification()
     {
-        $this->notify(new CustomEmailVerifyNotification);
+        $this->notify(new VerifyEmailNotification);
     }
 
-    public function sendPasswordResetNotification($code)
+    public function sendPasswordResetNotification($token)
     {
-        $this->notify(new CustomResetPasswordNotification($code));
+        $this->notify(new ResetPasswordNotification($token));
     }
 
     public function tickets()
