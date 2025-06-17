@@ -17,6 +17,21 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 
+Route::get('/test', function () {
+    $users = User::whereNotNull('onesignal_player_id')->get();
+
+    $playerIds = $users->pluck('onesignal_player_id')->toArray();
+
+    if (!empty($playerIds)) {
+        $response = app(OneSignalService::class)->sendPush(
+            "Hi there",
+            "This is a test notification",
+            $playerIds
+        );
+        dd($response);
+    }
+});
+
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');
     return 'Storage link created';
