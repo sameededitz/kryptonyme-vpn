@@ -3,16 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Jobs\SendPasswordReset;
-use App\Models\PasswordResetCode;
 use App\Jobs\SendEmailVerification;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class AccountController extends Controller
 {
@@ -47,6 +43,7 @@ class AccountController extends Controller
         }
 
         SendEmailVerification::dispatch($user)->delay(now()->addSeconds(5));
+        // $user->sendEmailVerificationNotification();
 
         return response()->json([
             'status' => true,
