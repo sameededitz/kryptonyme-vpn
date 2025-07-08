@@ -32,3 +32,7 @@ Route::get('artisan/{command}', function ($command) {
     }
     return response()->json(['error' => 'Unauthorized'], 403);
 })->where('command', '.*');
+
+Route::get('/test', function () {
+    dd(Auth::guard('admin')->user());
+})->middleware('auth:admin');
