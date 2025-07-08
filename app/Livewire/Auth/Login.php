@@ -58,6 +58,7 @@ class Login extends Component
         }
 
         RateLimiter::clear($this->throttleKey());
+        Session::regenerate();
 
         return redirect()->intended(route('admin.dashboard'));
     }
