@@ -5,7 +5,6 @@ namespace App\Livewire\Auth;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Livewire\Attributes\Validate;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -51,7 +50,7 @@ class Login extends Component
             'role' => 'admin',
         ];
 
-        if (! Auth::guard('admin')->attempt($credentials, $this->remember)) {
+        if (! Auth::attempt($credentials, $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([

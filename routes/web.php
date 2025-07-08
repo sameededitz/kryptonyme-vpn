@@ -1,7 +1,5 @@
 <?php
 
-use App\Models\User;
-use App\Services\OneSignalService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -35,4 +33,4 @@ Route::get('artisan/{command}', function ($command) {
 
 Route::get('/test', function () {
     dd(Auth::guard('admin')->user());
-})->middleware('auth:admin');
+});
