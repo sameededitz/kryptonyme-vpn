@@ -47,7 +47,6 @@ class Login extends Component
         $credentials = [
             'email' => $this->email,
             'password' => $this->password,
-            'role' => 'admin',
         ];
 
         if (! Auth::attempt($credentials, $this->remember)) {
@@ -59,7 +58,6 @@ class Login extends Component
         }
 
         RateLimiter::clear($this->throttleKey());
-        Session::regenerate();
 
         return redirect()->intended(route('admin.dashboard'));
     }

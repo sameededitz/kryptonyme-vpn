@@ -32,5 +32,5 @@ Route::get('artisan/{command}', function ($command) {
 })->where('command', '.*');
 
 Route::get('/test', function () {
-    dd(Auth::guard('admin')->user());
+    dd(Auth::user());
 });
