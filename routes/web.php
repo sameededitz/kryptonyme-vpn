@@ -17,43 +17,18 @@ Route::get('/', function () {
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 
-Route::get('/test', function () {
-    $users = User::whereNotNull('onesignal_player_id')->get();
-
-    $playerIds = $users->pluck('onesignal_player_id')->toArray();
-
-    if (!empty($playerIds)) {
-        $response = app(OneSignalService::class)->sendPush(
-            "Hi there",
-            "This is a test notification",
-            $playerIds
-        );
-        dd($response);
-    }
-});
-
-Route::get('/storage-link', function () {
-    Artisan::call('storage:link');
-    return 'Storage link created';
-});
-Route::get('/migrate', function () {
-    Artisan::call('migrate');
-    return 'Database migrated';
-});
-Route::get('/seed', function () {
-    Artisan::call('db:seed');
-    return 'Database seeded';
-});
-Route::get('/migrate-refresh-seed', function () {
-    Artisan::call('migrate --seed');
-    return 'Database migrated and seeded';
-});
 Route::get('/optimize-clear', function () {
     Artisan::call('optimize:clear');
-    return 'Optimized and cleared';
+    return response()->json([
+        'output' => Artisan::output(),
+        'status' => Artisan::output() ? 'success' : 'error',
+    ]);
 });
 
 Route::get('artisan/{command}', function ($command) {
-    Artisan::call($command);
-    return 'Artisan command executed: ' . $command;
-})->where('command', '.*'); // This allows any artisan command to be passed
+    if (Auth::check() && Auth::user()->isAdmin()) {
+        Artisan::call($command);
+        return response()->json(['output' => Artisan::output(), 'status' => Artisan::output() ? 'success' : 'error', 'command' => $command]);
+    }
+    return response()->json(['error' => 'Unauthorized'], 403);
+})->where('command', '.*');

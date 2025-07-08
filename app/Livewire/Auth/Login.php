@@ -35,9 +35,11 @@ class Login extends Component
 
         $user = User::where('email', $this->email)->first();
 
-        if ($user->role !== 'admin') {
+        if (! $user || $user->role !== 'admin') {
+            RateLimiter::hit($this->throttleKey());
+
             throw ValidationException::withMessages([
-                'email' => "You are not admin.",
+                'email' => "You are not authorized to access the admin panel.",
             ]);
         }
 
@@ -46,9 +48,10 @@ class Login extends Component
         $credentials = [
             'email' => $this->email,
             'password' => $this->password,
+            'role' => 'admin',
         ];
 
-        if (! Auth::attempt($credentials, $this->remember)) {
+        if (! Auth::guard('admin')->attempt($credentials, $this->remember)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
