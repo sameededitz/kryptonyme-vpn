@@ -20,7 +20,7 @@ Route::middleware('guest')->group(function () {
     Route::post('/forgot-password', [AccountController::class, 'sendResetLink'])->name('api.password.reset');
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'authorized'])->group(function () {
     Route::get('/user', [UserController::class, 'user'])->name('api.user');
     Route::post('/user/update', [UserController::class, 'updateProfile'])->name('api.profile.update');
     Route::post('/user/update-password', [UserController::class, 'updatePassword'])->name('api.profile.update.password');
