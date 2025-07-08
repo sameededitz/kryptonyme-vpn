@@ -39,7 +39,7 @@ class Login extends Component
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'name' => "You are not authorized to access the admin panel.",
+                'message' => "You are not authorized to access the admin panel.",
             ]);
         }
 
@@ -55,7 +55,7 @@ class Login extends Component
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'name' => __('auth.failed'),
+                'message' => __('auth.failed'),
             ]);
         }
 
@@ -79,7 +79,7 @@ class Login extends Component
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'name' => __('auth.throttle', [
+            'message' => __('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),

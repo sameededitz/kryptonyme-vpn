@@ -8,15 +8,14 @@
                         <div class="card-body">
                             <div class="p-4">
                                 <div class="mb-3 text-center">
-                                    <img src="{{ asset('assets/images/logo-img.png') }}" width="80px" class="me-4" alt="logo" />
+                                    <img src="{{ asset('assets/images/logo-img.png') }}" width="80px" class="me-4"
+                                        alt="logo" />
                                 </div>
                                 <div class="text-center mb-4">
                                     <p class="mb-0">Please log in to your account</p>
                                 </div>
-                                @if ($errors->any())
-                                    @foreach ($errors->all() as $error)
-                                        <x-alert type="danger" :message="$error" />
-                                    @endforeach
+                                @if ($errors->has('message'))
+                                    <x-alert type="danger" :message="$errors->first('message')" />
                                 @endif
                                 <div class="form-body">
                                     <form class="row g-3" wire:submit.prevent="login">
